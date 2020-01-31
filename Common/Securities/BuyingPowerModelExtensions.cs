@@ -13,6 +13,7 @@
  * limitations under the License.
 */
 
+using System;
 using QuantConnect.Orders;
 
 namespace QuantConnect.Securities
@@ -33,28 +34,6 @@ namespace QuantConnect.Securities
             var context = new ReservedBuyingPowerForPositionParameters(security);
             var reservedBuyingPower = model.GetReservedBuyingPowerForPosition(context);
             return reservedBuyingPower.Value;
-        }
-
-        /// <summary>
-        /// Gets the buying power available for a trade
-        /// </summary>
-        /// <param name="model">The <see cref="IBuyingPowerModel"/></param>
-        /// <param name="portfolio">The algorithm's portfolio</param>
-        /// <param name="security">The security to be traded</param>
-        /// <param name="direction">The direction of the trade</param>
-        /// <returns>The buying power available for the trade</returns>
-        public static decimal GetBuyingPower(
-            this IBuyingPowerModel model,
-            SecurityPortfolioManager portfolio,
-            Security security,
-            OrderDirection direction
-            )
-        {
-            var context = new BuyingPowerParameters(portfolio, security, direction);
-            var buyingPower = model.GetBuyingPower(context);
-
-            // existing implementations assume certain non-account currency units, so return raw value
-            return buyingPower.Value;
         }
 
         /// <summary>
